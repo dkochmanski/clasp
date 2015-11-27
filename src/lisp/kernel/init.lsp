@@ -1,4 +1,4 @@
-;; Set features :ecl-min for minimal system without CLOS
+;; Set features :clasp-min for minimal system without CLOS
 ;; :clos to compile with CLOS
 ;;
 
@@ -33,7 +33,7 @@
 (setq core::*boot-verbose* nil)
 (setq cl:*print-circle* nil)
 
-;;(setq *features* (cons :ecl-min *features*))
+;;(setq *features* (cons :clasp-min *features*))
 (setq *features* (cons :clasp *features*))
 ;;(setq *features* (cons :clos *features*))
 ;;(setq *features* (cons :debug-compiler *features*))
@@ -418,7 +418,7 @@ Gives a global declaration.  See DECLARE for possible DECL-SPECs."
 (defun build-hostname (type &optional stage)
   (let* ((stage (if stage 
                     stage 
-                    (if (member :ecl-min *features*) 
+                    (if (member :clasp-min *features*)
                         "min" 
                         (if (member :cclasp *features*) 
                             "cclasp" 
@@ -574,7 +574,7 @@ Gives a global declaration.  See DECLARE for possible DECL-SPECs."
 
 ;; I need to search the list rather than using features because *features* may change at runtime
 (defun default-target-backend (&optional given-stage)
-  (let* ((stage (if given-stage given-stage (if (member :ecl-min *features*) "min" (if (member :cclasp *features*) "cclasp" "full"))))
+  (let* ((stage (if given-stage given-stage (if (member :clasp-min *features*) "min" (if (member :cclasp *features*) "cclasp" "full"))))
          (garbage-collector (build-configuration))
          (target-backend (bformat nil "%s-%s" stage garbage-collector)))
     target-backend))
@@ -969,7 +969,7 @@ Gives a global declaration.  See DECLARE for possible DECL-SPECs."
 (export 'recursive-remove-from-list)
 
 (defun remove-stage-features ()
-  (setq *features* (recursive-remove-from-list :ecl-min *features*))
+  (setq *features* (recursive-remove-from-list :clasp-min *features*))
   (setq *features* (recursive-remove-from-list :clos *features*))
   (setq *features* (recursive-remove-from-list :bclasp *features*))
   (setq *features* (recursive-remove-from-list :cclasp *features*)))
@@ -996,7 +996,7 @@ Gives a global declaration.  See DECLARE for possible DECL-SPECs."
 (export 'min-features)
 (defun min-features ()
   (remove-stage-features)
-  (setq *features* (list* :ecl-min *features*)))
+  (setq *features* (list* :clasp-min *features*)))
 
 (export 'bclasp-features)
 (defun bclasp-features()
