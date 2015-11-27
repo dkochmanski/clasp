@@ -19946,7 +19946,7 @@ static void* OBJ_DEALLOCATOR_table[] = { NULL
  SMART_PTR_FIX(core::_sym_STARprint_source_code_consSTAR);
  SMART_PTR_FIX(cl::_sym_return_from);
  SMART_PTR_FIX(core::_sym_STARprint_structureSTAR);
- SMART_PTR_FIX(kw::_sym_ecl_min);
+ SMART_PTR_FIX(kw::_sym_clasp_min);
  SMART_PTR_FIX(cl::_sym_leastPositiveShortFloat);
  SMART_PTR_FIX(cl::_sym_lognot);
  SMART_PTR_FIX(cl::_sym_getOutputStreamString);
