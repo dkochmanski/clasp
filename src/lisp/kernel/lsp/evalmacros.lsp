@@ -227,7 +227,7 @@ terminated by a non-local exit."
 
 ; assignment
 
-#-ecl-min
+#-clasp-min
 (defmacro psetq (&rest args)
   "Syntax: (psetq {var form}*)
 Similar to SETQ, but evaluates all FORMs first, and then assigns each value to

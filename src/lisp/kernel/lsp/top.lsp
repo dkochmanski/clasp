@@ -49,7 +49,7 @@
 (defparameter *step-level* 0)			; repeated from trace.lsp
 
 (defparameter *break-hidden-functions* '(error cerror apply funcall invoke-debugger))
-(defparameter *break-hidden-packages* (list #-ecl-min (find-package 'system)))
+(defparameter *break-hidden-packages* (list #-(or ecl-min clasp-min) (find-package 'system)))
 
 (defconstant tpl-commands
    '(("Top level commands"
@@ -556,7 +556,7 @@ Use special code 0 to cancel this operation.")
 	      ((:prompt-hook *tpl-prompt-hook*) *tpl-prompt-hook*)
 	      (broken-at nil)
 	      (quiet nil))
-  ;;  #-ecl-min (declare (c::policy-debug-ihs-frame))
+  #-(or ecl-min clasp) (declare (c::policy-debug-ihs-frame))
   (let* ((*ihs-base* *ihs-top*)
 	 (*ihs-top* (if broken-at (ihs-search t broken-at) (ihs-top)))
 	 (*ihs-current* (if broken-at (ihs-prev *ihs-top*) *ihs-top*))
@@ -953,7 +953,7 @@ Use special code 0 to cancel this operation.")
 (defun decode-ihs-env (*break-env*)
   (let ((env *break-env*))
     (if (vectorp env)
-      #+ecl-min
+      #+(or ecl-min clasp-min)
       nil
       #-(or ecl-min clasp) ;; I'm turning off this c-inline for clasp because I don't know what it does meister 2013
       (let* ((next (decode-ihs-env
@@ -1542,7 +1542,8 @@ package."
   ;; call *INVOKE-DEBUGGER-HOOK* first, so that *DEBUGGER-HOOK* is not
   ;; called when the debugger is disabled. We adopt this mechanism
   ;; from SBCL.
-;;  #-ecl-min (declare (c::policy-debug-ihs-frame))
+  #-(or ecl-min clasp)
+  (declare (c::policy-debug-ihs-frame))
   (let ((old-hook *invoke-debugger-hook*))
     (when old-hook
       (let ((*invoke-debugger-hook* nil))

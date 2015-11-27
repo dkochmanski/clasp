@@ -10,7 +10,7 @@
 
 (eval-when (:compile-toplevel  :execute   :load-toplevel)
   
-  #+ecl-min
+  #+(or ecl-min clasp-min)
   (defmacro handler-bind (bindings &body body)
     `(progn ,@body))
   

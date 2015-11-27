@@ -171,7 +171,8 @@ Returns the bit of BIT-ARRAY specified by INDEXes."
   (declare #+ecl(array bit-array) ;; FIXME! Should be (simple-array bit)
            #+clasp(type (simple-array bit) bit-array)
            (ext:check-arguments-type))
-  #+(and clasp (not ecl-min))(check-type bit-array (simple-array bit))
+  #+(and clasp (not clasp-min))
+  (check-type bit-array (simple-array bit))
   (row-major-aref bit-array (row-major-index-inner bit-array indices)))
 
 
@@ -181,7 +182,8 @@ Returns the specified bit in SIMPLE-BIT-ARRAY."
   (declare #+ecl(array bit-array) ;; FIXME! Should be (simple-array bit)
            #+clasp(type (simple-array bit) bit-array)
            (ext:check-arguments-type))
-  #+(and clasp (not ecl-min))(check-type bit-array (simple-array bit))
+  #+(and clasp (not clasp-min))
+  (check-type bit-array (simple-array bit))
   (row-major-aref bit-array (row-major-index-inner bit-array indices)))
 
 
