@@ -67,7 +67,7 @@ int f(Environment_sp &e) {
 #define DOCS_core_help_booting "Print info about booting"
 void core_help_booting() {
   printf("Useful *features*\n"
-         ":ecl-min (should be clasp-min),  :bclasp, :cclasp  -- Tells Clasp what stage it's in and where to get its init file.\n"
+         ":clasp-min,  :bclasp, :cclasp  -- Tells Clasp what stage it's in and where to get its init file.\n"
          ":notify-on-compile (core:*notify-on-compile*) - prints messages whenever COMPILE is invoked at startup\n"
          ":trace-startup (core:*trace-startup*) - prints messages and timing for running the main function of the compiled code of each system file at startup\n"
          ":debug-startup (core:*debug-startup*) - prints a message and timing for running each top level function\n"
@@ -165,11 +165,11 @@ T_mv core_mangleName(Symbol_sp sym, bool is_function) {
 
 #define ARGS_core_startupImagePathname "()"
 #define DECL_core_startupImagePathname ""
-#define DOCS_core_startupImagePathname "startupImagePathname - returns one of min-boehm, full-boehm, min-mps, full-mps, cclasp-boehm, cclasp-mps based on *features* :ECL-MIN, :USE-MPS, :BCLASP"
+#define DOCS_core_startupImagePathname "startupImagePathname - returns one of min-boehm, full-boehm, min-mps, full-mps, cclasp-boehm, cclasp-mps based on *features* :CLASP-MIN, :USE-MPS, :BCLASP"
 T_sp core_startupImagePathname() {
   _G();
   Cons_sp features = gc::As<Cons_sp>(cl::_sym_STARfeaturesSTAR->symbolValue());
-  List_sp min = features->memberEq(kw::_sym_ecl_min);
+  List_sp min = features->memberEq(kw::_sym_clasp_min);
   List_sp mps = features->memberEq(kw::_sym_use_mps);
   List_sp boehmdc = features->memberEq(kw::_sym_use_boehmdc);
   List_sp bclasp = features->memberEq(kw::_sym_bclasp);
